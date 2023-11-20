@@ -4,18 +4,19 @@ on:
   push:
     branches:
       - 'main'
-
+      
 jobs:
-  pull_deploy:
-    name: Connect server ssh and pull
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: connect ssh
+      - uses: actions/checkout@v3.3.0
+
+      - name: execute remote ssh
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.DEPLOYMENT_HOST }}
           username: ${{ secrets.DEPLOYMENT_USERNAME }}
           password: ${{ secrets.DEPLOYMENT_PASSWORD }}
           port: ${{ secrets.DEPLOYMENT_PORT }}
-          script:
-            ./update.sh # script in server
+          script: |
+            ./update.sh

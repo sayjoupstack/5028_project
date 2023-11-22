@@ -16,9 +16,9 @@ def index():
     api_key = os.getenv("API_KEY")
     url = "http://api.weatherapi.com/v1/current.json?key="+api_key+"&q=seoul&aqi=no"
     response = requests.get(url).json()
+    localtime = response["location"]["localtime"]
     
-    
-    return render_template('index.html', localtime = response)
+    return render_template('index.html', localtime = localtime)
 
 @app.route("/mail",methods=['POST'])
 def mail():

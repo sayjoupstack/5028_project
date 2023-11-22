@@ -10,6 +10,7 @@ import requests
 load_dotenv()
 
 app = Flask(__name__)
+app.config["SECRET_KEY"] = os.getenv("FLASH_SECRET_KEY")
 
 @app.route('/')
 def index():
@@ -34,7 +35,7 @@ def mail():
     content = request.form["content"]
     flash(content)
     # result = send_mail.delay(content)
-    return "MAIL"
+    return render_template("send.html")
 
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

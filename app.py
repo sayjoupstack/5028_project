@@ -1,3 +1,4 @@
+# encoding=utf8
 from flask import Flask
 from dotenv import load_dotenv
 from task import add

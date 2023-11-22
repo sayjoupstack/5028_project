@@ -13,8 +13,8 @@ def add(x, y):
     return x + y
 
 @app.task
-def send_mail():
-    content = "test"
+def send_mail(content):
+    content = content
     title = 'test'
 
     sender = os.getenv("MAIL_ADDRESS")

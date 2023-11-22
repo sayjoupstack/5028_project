@@ -18,7 +18,7 @@ def index():
     response = requests.get(url).json()
     
     
-    return render_template('index.html', localtime = response.location.localtime)
+    return render_template('index.html', localtime = response)
 
 @app.route("/mail",methods=['POST'])
 def mail():

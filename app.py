@@ -31,7 +31,7 @@ def index():
 
 @app.route("/mail",methods=['POST'])
 def mail():
-    content = request.form.content
+    content = request.form["content"]
     flash(content)
     # result = send_mail.delay(content)
     return "MAIL"

@@ -37,7 +37,7 @@ def mail():
     content = request.form["content"]
     flash(content)
     db = CRUD()
-    db.insertDB(schema=os.getenv['DB_DATABASE'],table='mail',colum='content',data=content)
+    db.insertDB(schema=os.getenv('DB_DATABASE'),table='mail',colum='content',data=content)
     # result = send_mail.delay(content)
     return render_template("send.html")
 

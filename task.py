@@ -1,6 +1,10 @@
 from celery import Celery
+from dotenv import load_dotenv
+import os
 
-app = Celery('tasks', backend='rpc://', broker='pyamqp://admin:whtpehd6298!@localhost:5672/')
+load_dotenv()
+
+app = Celery('tasks', backend='rpc://', broker='pyamqp://'+os.getenv("RABBITMQ_USER")+':'+os.getenv("RABBITMQ_PASSWORD")+'@'+os.getenv("RABBITMQ_HOST")+'/')
 
 @app.task
 def add(x, y):

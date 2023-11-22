@@ -1,5 +1,5 @@
 # encoding=utf8
-from flask import Flask
+from flask import Flask, render_template
 from dotenv import load_dotenv
 from task import send_mail
 import os
@@ -12,7 +12,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return "main"
+    return render_template('index.html')
 
 @app.route("/mail",methods=['POST'])
 def mail():

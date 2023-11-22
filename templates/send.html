@@ -1,9 +1,7 @@
 {%with messages = get_flashed_messages()%}
 {%if messages %}
   <script type="text/javascript">
-    if(confirm("{{messages[-1]}}")) document.location = '/';
-    // alert("{{messages[-1]}}");
-    // window.location.href = '/';
+    if(alert("{{messages[-1]}}")) document.location = '/';    
   </script>
   {%endif%}
 {%endwith%}

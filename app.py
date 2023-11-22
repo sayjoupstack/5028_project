@@ -6,11 +6,13 @@ import os
 import smtplib
 from email.mime.text import MIMEText
 import requests
+from db_method import CRUD
 
 load_dotenv()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("FLASH_SECRET_KEY")
+
 
 @app.route('/')
 def index():
@@ -34,6 +36,8 @@ def index():
 def mail():
     content = request.form["content"]
     flash(content)
+    db = CRUD()
+    db.insertDB(schema=os.getenv['DB_DATABASE'],table='mail',colum='content',data=content)
     # result = send_mail.delay(content)
     return render_template("send.html")
 

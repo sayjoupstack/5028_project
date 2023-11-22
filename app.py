@@ -13,12 +13,19 @@ load_dotenv()
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("FLASH_SECRET_KEY")
 
+# TEST THIS METHOD
+def getWeatherInfo():
+    api_key = os.getenv("API_KEY")
+    url = "http://api.weatherapi.com/v1/current.json?key="+api_key+"&q=seoul&aqi=no"
+    return requests.get(url).json()
+
+def test_getWeatherInfo():
+    result = getWeatherInfo()
+    assert result["location"]["name"] == "Seoul"
 
 @app.route('/')
 def index():
-    api_key = os.getenv("API_KEY")
-    url = "http://api.weatherapi.com/v1/current.json?key="+api_key+"&q=seoul&aqi=no"
-    response = requests.get(url).json()
+    response = getWeatherInfo()
     localtime = response["location"]["localtime"]
     temp_c = response["current"]["temp_c"]
     temp_f = response["current"]["temp_f"]
@@ -35,10 +42,10 @@ def index():
 @app.route("/mail",methods=['POST'])
 def mail():
     content = request.form["content"]
-    flash(content)
     db = CRUD()
     db.insertDB(schema='public',table='mail',colum='content',data=content)
-    # result = send_mail.delay(content)
+    flash(content)
+    send_mail.delay(content)
     return render_template("send.html")
 
 if __name__ == '__main__':

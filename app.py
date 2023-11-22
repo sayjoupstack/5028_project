@@ -1,5 +1,5 @@
 # encoding=utf8
-from flask import Flask, render_template
+from flask import Flask, render_template, flash, request
 from dotenv import load_dotenv
 from task import send_mail
 import os
@@ -31,8 +31,9 @@ def index():
 
 @app.route("/mail",methods=['POST'])
 def mail():
-    content = "test"
-    result = send_mail.delay(content)
+    content = request.form.content
+    flash(content)
+    # result = send_mail.delay(content)
     return "MAIL"
 
 if __name__ == '__main__':
